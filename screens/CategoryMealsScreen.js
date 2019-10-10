@@ -1,7 +1,8 @@
 import React from 'react'
-import { View, Text, StyleSheet, Button } from 'react-native'
+import { useSelector } from 'react-redux'
 
 import { CATEGORIES } from '../data/dummy-data'
+import MealList from '../components/MealList'
 
 const getCategory = props => {
   const catId = props.navigation.getParam('categoryId')
