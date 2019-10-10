@@ -9,18 +9,15 @@ const getCategory = props => {
 }
 
 const CategoryMealsScreen = props => {
-  const selectedCategory = getCategory(props)
-  console.log(selectedCategory)
+  const catId = props.navigation.getParam('categoryId')
 
-  return (
-    <View style={styles.screen}>
-      <Text>{selectedCategory.title}</Text>
-      <Button
-        title="Go to Meal Details"
-        onPress={() => props.navigation.navigate('MealDetails')}
-      />
-    </View>
+  const availableMeals = useSelector(state => state.meals.filteredMeals)
+
+  const displayedMeals = availableMeals.filter(
+    meal => meal.categoryIds.indexOf(catId) >= 0
   )
+
+  return <MealList listData={displayedMeals} navigation={props.navigation} />
 }
 
 CategoryMealsScreen.navigationOptions = navigationData => {
@@ -29,13 +26,5 @@ CategoryMealsScreen.navigationOptions = navigationData => {
     headerTitle: selectedCategory.title
   }
 }
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-})
 
 export default CategoryMealsScreen
